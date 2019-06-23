@@ -5,6 +5,6 @@ defmodule ExdaTest.ErrorConsumer do
   def consume_message_produced(event_data) do
     send(Map.get(event_data, :pid), event_data)
 
-    {:error, %ArgumentError{ message: "some consumer error"}}
+    {:error, %ArgumentError{message: "some consumer error"}}
   end
 end

@@ -1,4 +1,10 @@
 defmodule Exda.GenServerConsumer do
+  @moduledoc """
+
+  Use this module will allow a user to specify a consumer that will
+  delivered messages via a async_cast_gen_server.
+
+  """
   defmacro __using__(events \\ [], restart_type \\ :transient) do
     gen_server_ast =
       quote do

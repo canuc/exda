@@ -121,8 +121,8 @@ defmodule Exda do
     * `Exda.EventBuses.AsyncTask` - This will use `Task.start/3` and call each specified consumer as
       a new task with its own pid.
 
-    * `Exda.EventBuses.AsyncCastGenServer` - This will call a `GenServer` resulting in the message
-      bieng processed in its own pid asynchronously.
+    * `Exda.EventBuses.AsyncCastGenServer` - This will call a `GenServer` resulting in all message
+      being processed in its own pid asynchronously.
 
 
   ## Exda.EventBuses.Synchronous

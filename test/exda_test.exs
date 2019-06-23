@@ -16,7 +16,11 @@ defmodule ExdaTest do
     test "producer should be able to be configured with a consumer" do
       put_consumer_in_exda_env(ExdaTest.TestConsumer)
       event_property = :crypto.strong_rand_bytes(1)
-      ExdaTest.Producer.send_notify_message_produced(%{event_property: event_property, pid: self()})
+
+      ExdaTest.Producer.send_notify_message_produced(%{
+        event_property: event_property,
+        pid: self()
+      })
 
       assert_receive %{event_property: received_info}
       assert received_info == event_property
@@ -25,7 +29,11 @@ defmodule ExdaTest do
     test "producer should handle a bad return value" do
       put_consumer_in_exda_env(ExdaTest.BadConsumer)
       event_property = :crypto.strong_rand_bytes(1)
-      ExdaTest.Producer.send_notify_message_produced(%{event_property: event_property, pid: self()})
+
+      ExdaTest.Producer.send_notify_message_produced(%{
+        event_property: event_property,
+        pid: self()
+      })
 
       assert_receive %{event_property: received_info}
       assert received_info == event_property
@@ -34,7 +42,11 @@ defmodule ExdaTest do
     test "producer should handle GenServerConsumer with a gen_server bus" do
       put_consumer_in_exda_env(ExdaTest.GenServerConsumer, Exda.EventBuses.AsyncCastGenServer)
       event_property = :crypto.strong_rand_bytes(1)
-      ExdaTest.Producer.send_notify_message_produced(%{event_property: event_property, pid: self()})
+
+      ExdaTest.Producer.send_notify_message_produced(%{
+        event_property: event_property,
+        pid: self()
+      })
 
       assert_receive %{event_property: received_info}
       assert received_info == event_property
@@ -51,14 +63,18 @@ defmodule ExdaTest do
       event_property = :crypto.strong_rand_bytes(1)
 
       producer_response =
-        ExdaTest.Producer.send_notify_message_produced(%{event_property: event_property, pid: self()})
+        ExdaTest.Producer.send_notify_message_produced(%{
+          event_property: event_property,
+          pid: self()
+        })
 
       assert_receive %{event_property: received_event_property}
       assert received_event_property == event_property
       assert_receive %{event_property: received_event_property}
       assert received_event_property == event_property
 
-      assert {:ok, [{ExdaTest.TestConsumer, {:ok, :empty}}, {ExdaTest.TestConsumer, {:ok, :empty}}]} =
+      assert {:ok,
+              [{ExdaTest.TestConsumer, {:ok, :empty}}, {ExdaTest.TestConsumer, {:ok, :empty}}]} =
                producer_response
     end
 
@@ -73,7 +89,10 @@ defmodule ExdaTest do
       event_property = :crypto.strong_rand_bytes(1)
 
       producer_response =
-        ExdaTest.Producer.send_notify_message_produced(%{event_property: event_property, pid: self()})
+        ExdaTest.Producer.send_notify_message_produced(%{
+          event_property: event_property,
+          pid: self()
+        })
 
       assert_receive %{event_property: received_event_property}
       assert received_event_property == event_property
