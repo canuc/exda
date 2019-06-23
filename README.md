@@ -1,5 +1,8 @@
 # Exda
 
+[![Build Status](https://travis-ci.org/canuc/exda.svg?branch=master)](https://travis-ci.org/canuc/exda)
+[![codecov](https://codecov.io/gh/canuc/exda/branch/master/graph/badge.svg)](https://codecov.io/gh/canuc/exda)
+
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
