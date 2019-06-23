@@ -1,10 +1,10 @@
 defmodule Exda.GenServerConsumer do
-  defmacro __using__(events \\ []) do
+  defmacro __using__(events \\ [], restart_type \\ :transient) do
     gen_server_ast =
       quote do
         use Exda.Consumer, unquote(events)
 
-        use GenServer, restart: :transient
+        use GenServer, restart: unquote(restart_type)
 
         def start_link(_) do
           GenServer.start_link(__MODULE__, [])

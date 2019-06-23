@@ -8,12 +8,19 @@ defmodule Exda.MixProject do
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      elixirc_paths: elixirc_paths(Mix.env()),
       docs: [
         # The main page in the docs
         main: "Exda",
         logo: "priv/exda_logo.png",
         extras: ["README.md"]
-      ]
+      ],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.html": :test,
+        "coveralls.json": :test,
+      ],
+      test_coverage: [tool: ExCoveralls],
     ]
   end
 
@@ -23,6 +30,9 @@ defmodule Exda.MixProject do
       extra_applications: [:logger]
     ]
   end
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
 
   def package() do
     [
@@ -35,7 +45,9 @@ defmodule Exda.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_doc, "~> 0.19", only: :dev}
+      {:ex_doc, "~> 0.19", only: :dev},
+      {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
+      {:excoveralls, "~> 0.5.7", only: :test},
     ]
   end
 end
