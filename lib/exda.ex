@@ -20,7 +20,7 @@ defmodule Exda do
   ## Producers
 
   Producers are the modules that report that an action has been completed. Lets say you have 
-  just sent recieved and persisted a message from a pheonix channel, and want to let some other 
+  just sent recieved and persisted a message from a phoenix channel, and want to let some other 
   component know -- lets use an analytics engine as an example in this case -- that some action has been completed:
 
 
@@ -41,12 +41,13 @@ defmodule Exda do
       end
 
 
-  We can publish the event to all the hooked up subscribers with the call: notify_message_produced
+  We can publish the event to all the hooked up consumers with the call: `notify_message_produced/1`
 
   ## Consumers
 
   To attach a consumer to an event simply configure the event with a list of tuples, first element being
-   the module second being the bus. For example the config for a `:message_produced` event:
+  the module second being the bus. For the example the config for a `:message_produced` event could be 
+  as follows:
 
       config :exda, [
         events: [:message_produced, :message_received],
@@ -63,9 +64,9 @@ defmodule Exda do
 
   The configuration above will trigger: `SomeApp.SomeModule.consume_message_produced/1` synchronously,
   `SomeApp.OtherModule.consume_message_produced/1` asynchronously, and send a message to a GenServer
-  which automagically routes to the method: `SomeApp.ThirdModule.consume_message_produced/1`.
+  which auto-magically routes to the method: `SomeApp.ThirdModule.consume_message_produced/1`.
 
-  This customization means you can have control of the delivery bus based on your config. So in your
+  This customization means you can have control of the delivery bus based on your config. In your
   config for tests you can remove all the consumers that reach out to external API or make long running
   calls.
 
