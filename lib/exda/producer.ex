@@ -1,10 +1,20 @@
 defmodule Exda.Producer do
   @type bus_callback() :: {:ok, any()} | {:error, any()} | {:halt, any()} | :error | :ok | :halt
 
+  @type bus_success() :: {:ok, pid()} | {:ok, :empty} | {:ok, any()}
+  @type bus_failure() :: {:error, %Exda.Exception.UnkownConsumerError{}} | {:error, any()}
+  @type bus_halt() :: {:halt, %Exda.Exception.UnkownConsumerHalt{}} | {:halt, any()}
+
+  @type bus_responses() :: list({module(), bus_success() | bus_failure() | bus_halt()})
+
+  @type producer_response() :: {:ok, bus_responses()}
+
   @moduledoc """
 
     Producers should be used to generate convience methods(:notify_{event_name}) to produce messages
     for all the attached consumer.
+
+    
 
   """
   defmacro __using__(events \\ []) do
@@ -35,7 +45,7 @@ defmodule Exda.Producer do
       for generating_event_name <- events do
         quote do
           @spec unquote(:"notify_#{generating_event_name}")(arguments :: Keyword.t()) ::
-                  {:ok, any()} | {:error, any()}
+                  Exda.Producer.bus_response()
           defp unquote(:"notify_#{generating_event_name}")(event_data) do
             consumers =
               Keyword.get(

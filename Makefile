@@ -11,4 +11,4 @@ testing: deps
 	mix dialyzer --halt-exit-status
 
 docs:
-	mix inch.report
+	mix docs

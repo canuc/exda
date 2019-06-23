@@ -1,0 +1,11 @@
+{
+  "coverage_options": {
+    "treat_no_relevant_lines_as_covered": true,
+    "minimum_coverage": 80
+  },
+  "skip_files": [
+    "lib/exda/gen_server_consumer.ex",
+    "lib/exda/producer.ex",
+    "examples/"
+  ]
+}

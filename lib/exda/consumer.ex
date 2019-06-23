@@ -1,7 +1,27 @@
 defmodule Exda.Consumer do
   @moduledoc """
 
-  Use this module to ensure that a consumer is able to recieve messages.
+  Use this consumer module whenever you would like to provision a module to
+  accept events from a producer.
+
+  Lets say we wanted to process an event: `:message_sent`.
+
+  The consumer would look a little something like:
+
+      defmodule SomeApp.SomeModule do
+        use Exda.Consumer, [:message_sent]
+
+        @impl true
+        def handle_message_sent(event_data) do
+          Logger.info("Handling event! ")
+
+          event_data
+          |> IO.inspect
+
+          :ok
+        end
+      end
+
 
   """
   defmacro __using__(events \\ []) do

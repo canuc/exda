@@ -143,6 +143,8 @@ defmodule Exda do
   This bus requires that any consumers `use Exda.GenServerConsumer`. This bus is useful if 
   you want to have a specific number of pids that are dedicated to consuming messages. 
 
+  Please see: `Exda.EventBuses.AsyncCastGenServer`
+
   As well with the `Exda.EventBuses.AsyncCastGenServer` bus you can add the module to your supervisor tree.
 
 
