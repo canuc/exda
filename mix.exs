@@ -15,6 +15,7 @@ defmodule Exda.MixProject do
         logo: "priv/exda_logo.png",
         extras: ["README.md"]
       ],
+      package: package(),
       preferred_cli_env: [
         coveralls: :test,
         "coveralls.html": :test,
