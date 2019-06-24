@@ -17,7 +17,6 @@ defmodule ExdaTest do
   end
 
   describe "eda producer" do
-
     test "producer should be able to be configured with a consumer" do
       put_consumer_in_exda_env(ExdaTest.TestConsumer)
       event_property = :crypto.strong_rand_bytes(1)
