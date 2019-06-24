@@ -12,7 +12,7 @@ defmodule Exda.Consumer do
         use Exda.Consumer, [:message_sent]
 
         @impl true
-        def handle_message_sent(event_data) do
+        def consume_message_sent(event_data) do
           Logger.info("Handling event! ")
 
           event_data

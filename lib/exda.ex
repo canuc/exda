@@ -96,7 +96,7 @@ defmodule Exda do
         use Exda.Consumer, [:message_sent]
 
         @impl true
-        def handle_message_sent(event_data) do
+        def consume_message_sent(event_data) do
           Logger.info("Got event!")
 
           :ok
@@ -110,7 +110,7 @@ defmodule Exda do
         use Exda.Consumer, [:message_recieved]
 
         @impl true
-        def consume_message_sent(event_data) do
+        def consume_message_recieved(event_data) do
           Logger.info("Got event!")
 
           :ok

@@ -13,7 +13,7 @@ defmodule Exda.GenServerConsumer do
         use Exda.GenServerConsumer, [:message_sent]
 
         @impl true
-        def handle_message_sent(event_data) do
+        def consume_message_sent(event_data) do
           Logger.info("Got event!")
 
           :ok
@@ -27,7 +27,7 @@ defmodule Exda.GenServerConsumer do
 
   ## Event Consumer
 
-  Based on the above configuration you will need to declare a function: `handle_message_sent/1`
+  Based on the above configuration you will need to declare a function: `consume_message_sent/1`
   that will process each individual recieved message.
 
   """

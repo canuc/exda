@@ -12,10 +12,11 @@ defmodule ExdaTest do
     Application.put_env(:exda, :consumers, message_produced: [{consumer, bus}])
   end
 
+  setup do
+    Application.put_env(:exda, :bus, Exda.EventBuses.Synchronous)
+  end
+
   describe "eda producer" do
-    setup do
-      Application.put_env(:exda, :bus, Exda.EventBuses.Synchronous)
-    end
 
     test "producer should be able to be configured with a consumer" do
       put_consumer_in_exda_env(ExdaTest.TestConsumer)

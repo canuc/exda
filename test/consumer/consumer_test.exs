@@ -1,6 +1,10 @@
 defmodule ExdaTest.ConsumerTest do
   use ExUnit.Case
 
+  setup do
+    Application.put_env(:exda, :bus, Exda.EventBuses.Synchronous)
+  end
+
   describe "eda consumer" do
     test "stops when halt gets returned by sync consumer" do
       Application.put_env(:exda, :consumers,
