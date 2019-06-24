@@ -1,6 +1,10 @@
 defmodule ExdaTest.EventBusTest do
   use ExUnit.Case
 
+  setup do
+    Application.put_env(:exda, :bus, Exda.EventBuses.Synchronous)
+  end
+
   describe "synchronous bus" do
     test "should recieve the event from the bus" do
       attribute_value = 1

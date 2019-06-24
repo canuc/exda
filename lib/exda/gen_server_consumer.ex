@@ -1,8 +1,8 @@
 defmodule Exda.GenServerConsumer do
   @moduledoc """
 
-  This GenServerConsumer is used by specifying the possible events
-  that can be listened to as well as a restart type which will
+  This GenServerConsumer is used by specifying the event names
+  that can be processed by this event. to as well as a restart type which will
   be used to create a child spec for any module uses `GenServerConsumer`.
 
   ## Using

@@ -42,7 +42,7 @@ A listing of the consumers used outside of testing has been factored out to `con
 
 The consumer has two functions: `PheonixExdaSample.AnalyticsConsumer.consume_http_request_processed/1` and
 `PheonixExdaSample.AnalyticsConsumer.consume_user_index_requested/1`, that simply log message when the 
-server recieves the messages.
+server receives the messages.
 
 
 ```

@@ -1,27 +1,35 @@
 defmodule Exda do
   @moduledoc """
 
-  Exda = Elixir EDA. easily decouple logical components.
+  # Exda = Elixir EDA. 
+
+  ## Easily decouple elixir components.
+
+  This library's purpose is to allow a user to decouple components within their application via EDA.
+
+  EDA is event driven architecture, that encourages smaller more testable and easily maintainable
+  contexts.
+
+  This library was inspired by a talk at [ElixirConf EU 2018](https://www.youtube.com/watch?v=8qDXG7tnl9w).
 
   The event bus will be configurable at build time based on environment config. 
-  This makes it possible to factor out buisness logic so that your functional code
+  This makes it possible to factor out business logic so that your functional code
   is testable.
 
-  To use ExDA you must intialize a list of possible broadcast event names. Currently event
-  names are atoms that should be verbs describing the action that produced the message.
+  To use Exda you must intialize a list of possible broadcast event names. Currently event
+  names are atoms, whos names should be verbs describing the action that produces the event.
 
   Some examples: 
 
-    * `:messsage_sent` - This could be used once a channel successfully created a message.
-
-    * `:message_received` - This could be used once a subscriber recieves a message to perform
-      variable sets of actions.
+    * `:messsage_sent`
+    * `:message_received`
 
   ## Producers
 
-  Producers are the modules that report that an action has been completed. Lets say you have 
-  just sent recieved and persisted a message from a phoenix channel, and want to let some other 
-  component know -- lets use an analytics engine as an example in this case -- that some action has been completed:
+  Producers are the modules that report that an action has been completed. Let's say you have 
+  just sent, recieved and persisted a message from a phoenix channel, and want to let some other modules
+  handle subsequent actions. We can publish the event to all the hooked up consumers with the 
+  call: `notify_message_produced/1`.
 
 
       defmodule SomeApp.UserChannel do
@@ -41,13 +49,15 @@ defmodule Exda do
       end
 
 
-  We can publish the event to all the hooked up consumers with the call: `notify_message_produced/1`
-
   ## Consumers
 
-  To attach a consumer to an event simply configure the event with a list of tuples, first element being
-  the module second being the bus. For the example the config for a `:message_produced` event could be 
+  A consumer is a module that maintains one callback for each event name. Each callback should be of the form:
+  `consume_${event_name}`. The callback will be invoked once per call to a producers notify.
+
+  To attach a consumer to an event, simply configure the event with a list of tuples. First element being
+  the module, second being the bus. For the example the config for a `:message_produced` event could be 
   as follows:
+
 
       config :exda, [
         events: [:message_produced, :message_received],
@@ -147,6 +157,10 @@ defmodule Exda do
 
   As well with the `Exda.EventBuses.AsyncCastGenServer` bus you can add the module to your supervisor tree.
 
+
+  ## Example
+
+  There is an example in the example folder.
 
   """
   for event_name <- Application.get_env(:exda, :events, []) do
