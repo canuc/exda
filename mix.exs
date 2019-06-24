@@ -38,7 +38,7 @@ defmodule Exda.MixProject do
   def package() do
     [
       links: %{"GitHub" => "https://github.com/canuc/exda"},
-      description: "EDA for the masses, easily decouple your elixir components.",
+      description: "EDA for the masses, easily decouple your elixir contexts.",
       licenses: ["Apache 2.0"]
     ]
   end
